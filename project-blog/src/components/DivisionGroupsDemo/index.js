@@ -1,2 +1,10 @@
-export * from './DivisionGroupsDemo';
-export { default } from './DivisionGroupsDemo';
+"use client";
+
+import dynamic from 'next/dynamic';
+import Spinner from '../Spinner';
+
+const DivisionGroupsDemo = dynamic(() => import('./DivisionGroupsDemo'), {
+  loading: Spinner,
+});
+
+export default DivisionGroupsDemo;
