@@ -1,11 +1,15 @@
-'use client'
+'use client';
 
 import React from 'react';
 import { Sun, Moon } from 'react-feather';
 import Cookie from 'js-cookie';
 import VisuallyHidden from '@/components/VisuallyHidden';
 
-import { LIGHT_COLORS, DARK_COLORS } from '@/constants';
+import {
+  LIGHT_COLORS,
+  DARK_COLORS,
+  COLOR_THEME_COOKIE_NAME,
+} from '@/constants';
 
 import styles from '../Header/Header.module.css';
 
@@ -19,7 +23,7 @@ function ThemeToggle({ initialTheme }) {
     setTheme(nextTheme);
 
     // 2 — Update the cookie, for the user's next visit
-    Cookie.set('color-theme', nextTheme, {
+    Cookie.set(COLOR_THEME_COOKIE_NAME, nextTheme, {
       expires: 1000,
     });
 
@@ -37,15 +41,11 @@ function ThemeToggle({ initialTheme }) {
     Object.entries(colors).forEach(([key, value]) => {
       root.style.setProperty(key, value);
     });
-  }
+  };
 
   return (
     <button className={styles.action} onClick={handleClick}>
-      {theme === 'light' ? (
-        <Sun size="1.5rem" />
-      ) : (
-        <Moon size="1.5rem" />
-      )}
+      {theme === 'light' ? <Sun size='1.5rem' /> : <Moon size='1.5rem' />}
       <VisuallyHidden>Toggle dark / light mode</VisuallyHidden>
     </button>
   );

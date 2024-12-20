@@ -1,11 +1,14 @@
 import React from 'react';
-import {
-  Work_Sans,
-  Spline_Sans_Mono,
-} from 'next/font/google';
+import { Work_Sans, Spline_Sans_Mono } from 'next/font/google';
 import clsx from 'clsx';
 
-import { LIGHT_TOKENS, DARK_TOKENS } from '@/constants';
+import {
+  LIGHT_TOKENS,
+  DARK_TOKENS,
+  COLOR_THEME_COOKIE_NAME,
+  BLOG_TITLE,
+  BLOG_DESCRIPTION,
+} from '@/constants';
 
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -26,14 +29,21 @@ const monoFont = Spline_Sans_Mono({
   variable: '--font-family-mono',
 });
 
+export async function generateMetadata() {
+  return {
+    title: BLOG_TITLE,
+    description: BLOG_DESCRIPTION,
+  };
+}
+
 async function RootLayout({ children }) {
-  const savedTheme = cookies().get('color-theme');
+  const savedTheme = cookies().get(COLOR_THEME_COOKIE_NAME);
   const theme = savedTheme?.value || 'light';
 
   return (
     <RespectMotionPreferences>
       <html
-        lang="en"
+        lang='en'
         className={clsx(mainFont.variable, monoFont.variable)}
         data-color-theme={theme}
         style={theme === 'light' ? LIGHT_TOKENS : DARK_TOKENS}
